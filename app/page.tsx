@@ -12,21 +12,25 @@ interface Choice {
   relatedVariableValue?: number | string;
 }
 
+interface DisplayCondition {
+  operator: string;
+  value: string;
+  variableName: string;
+}
+
 interface Question {
   choices: Choice[];
+  displayCondition?: DisplayCondition[];
   formula: string;
   id: string;
   label: string;
   questionText: string;
+  relatedVariableName?: string;
   sortKey: string;
   variableName: string;
-  relatedVariableName?: string;
 }
 
-type AssignmentValue = number | string;
-
 type SetQuestionAnswer = (key: string, value: string) => void;
-
 type SetAnswer = (value: string) => void;
 
 const constants = parsedConstants as Record<string, number>;
@@ -57,7 +61,7 @@ function Question(props: {
   setQuestionAnswer: SetQuestionAnswer;
 }) {
   const { question, answer, setQuestionAnswer } = props;
-  const { questionText } = question;
+  const { questionText, displayCondition } = question;
 
   const setAnswer: SetAnswer = (value) => setQuestionAnswer(question.id, value);
 
@@ -78,23 +82,23 @@ function Question(props: {
 
 function TotalEmissions({ emissionsInKg }: { emissionsInKg: number }) {
   return (
-    <aside className="fixed top-0 inset-x-0 max-w-3xl mx-auto text-right">
-      <span className="bg-white">
-        Total emissions: <output>{emissionsInKg.toFixed(0)}</output> kg
-      </span>
+    <aside className="fixed bottom-0 inset-x-0 text-center bg-white py-2 border-t">
+      Total emissions: <output>{emissionsInKg.toFixed(0)}</output> kg
     </aside>
   );
 }
 
 function Questionnaire({
+  questions,
   answers,
   setQuestionAnswer,
 }: {
+  questions: Question[];
   answers: Record<string, string>;
   setQuestionAnswer: SetQuestionAnswer;
 }) {
   return (
-    <form className="max-w-3xl mx-auto flex flex-col gap-8">
+    <form className="max-w-3xl mx-auto flex flex-col gap-8 pt-8 pb-16">
       {questions.map((question) => (
         <Question
           key={question.id}
@@ -169,19 +173,47 @@ export default function Home() {
     ...replacedAssignmentsFromAnswers,
   };
 
-  const emissionsInKg = questions.reduce<number>((acc, { formula }, i) => {
-    const replacedFormula = replaceVariables(formula, assignments);
+  const testDisplayConditions = (displayConditions?: DisplayCondition[]) => {
+    if (!displayConditions) return true;
 
-    try {
-      return acc + evaluate(replacedFormula);
-    } catch (e) {
-      return acc;
-    }
-  }, 0);
+    return displayConditions.every(({ variableName, operator, value }) => {
+      const formula = replaceVariables(
+        `${variableName} ${operator.replace(/[!=]==/, (op) => op.substring(0, 2))} ${value}`,
+        assignments,
+      );
+
+      try {
+        return evaluate(formula);
+      } catch (e) {
+        return false;
+      }
+    });
+  };
+
+  const availableQuestions = questions.filter(({ displayCondition }) =>
+    testDisplayConditions(displayCondition),
+  );
+
+  const emissionsInKg = availableQuestions.reduce<number>(
+    (acc, { formula }, i) => {
+      const replacedFormula = replaceVariables(formula, assignments);
+
+      try {
+        return acc + evaluate(replacedFormula);
+      } catch (e) {
+        return acc;
+      }
+    },
+    0,
+  );
 
   return (
     <main>
-      <Questionnaire answers={answers} setQuestionAnswer={setQuestionAnswer} />
+      <Questionnaire
+        questions={availableQuestions}
+        answers={answers}
+        setQuestionAnswer={setQuestionAnswer}
+      />
       <TotalEmissions emissionsInKg={emissionsInKg} />
     </main>
   );
