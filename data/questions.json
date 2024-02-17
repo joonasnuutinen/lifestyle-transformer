@@ -1,0 +1,1145 @@
+[
+  {
+    "sortKey": "01-01",
+    "label": "building_and_electricity",
+    "id": "0EC6A5783B399398",
+    "choices": [
+      {
+        "choiceTranslationKey": "0EC6A5783B399398_choice1",
+        "choiceText": "1",
+        "choiceValue": 1
+      },
+      {
+        "choiceText": "2",
+        "choiceValue": 2,
+        "choiceTranslationKey": "0EC6A5783B399398_choice2"
+      },
+      {
+        "choiceTranslationKey": "0EC6A5783B399398_choice3",
+        "choiceValue": 3,
+        "choiceText": "3"
+      },
+      {
+        "choiceTranslationKey": "0EC6A5783B399398_choice4",
+        "choiceText": "4",
+        "choiceValue": 4
+      },
+      {
+        "choiceText": "5",
+        "choiceTranslationKey": "0EC6A5783B399398_choice5",
+        "choiceValue": 5
+      },
+      {
+        "choiceTranslationKey": "0EC6A5783B399398_choice6",
+        "choiceText": "6 or more",
+        "choiceValue": 6
+      }
+    ],
+    "variableName": "ANSWER_HOU_NO_OF_PEOPLE",
+    "questionText": "How many people live in your household? (including you)",
+    "formula": "0"
+  },
+  {
+    "label": "building_and_electricity",
+    "id": "55C836265E174117",
+    "questionText": "What is the living area of your home?",
+    "choices": [
+      {
+        "choiceValue": "16 / ANSWER_HOU_NO_OF_PEOPLE",
+        "choiceTranslationKey": "55C836265E174117_choice1",
+        "choiceText": "Less than 20 m2 - e.g. studio apartment"
+      },
+      {
+        "choiceTranslationKey": "55C836265E174117_choice2",
+        "choiceValue": "43 / ANSWER_HOU_NO_OF_PEOPLE",
+        "choiceText": "20 - 50 m2 - e.g. 1 bedroom apartment"
+      },
+      {
+        "choiceTranslationKey": "55C836265E174117_choice3",
+        "choiceText": "51 - 80 m2 - e.g. 2 bedrooms apartment",
+        "choiceValue": "67 / ANSWER_HOU_NO_OF_PEOPLE"
+      },
+      {
+        "choiceText": "81 -120 m2 - e.g. 3 bedrooms apartment, 1 storey house",
+        "choiceValue": "100 / ANSWER_HOU_NO_OF_PEOPLE",
+        "choiceTranslationKey": "55C836265E174117_choice4"
+      },
+      {
+        "choiceValue": "168 / ANSWER_HOU_NO_OF_PEOPLE",
+        "choiceTranslationKey": "55C836265E174117_choice5",
+        "choiceText": "121 - 200 m2 - e.g. 4 bedrooms apartment, 1 or 2 storey house"
+      },
+      {
+        "choiceText": "More than 200 m2 - e.g. 5 or more rooms apartment, big 2 or more storey house",
+        "choiceValue": "340 / ANSWER_HOU_NO_OF_PEOPLE",
+        "choiceTranslationKey": "55C836265E174117_choice6"
+      }
+    ],
+    "variableName": "ANSWER_HOU_SIZE_HOUSE_PER_PERSON",
+    "formula": "0",
+    "sortKey": "01-02"
+  },
+  {
+    "choices": [
+      {
+        "choiceTranslationKey": "C1154CC4386E46E2_choice1",
+        "choiceValue": "HOU_ELECTRICITY_TYPE_ECOLOGICAL_EMMISSION_FACTOR",
+        "choiceText": "Wind, water or solar power"
+      },
+      {
+        "choiceTranslationKey": "C1154CC4386E46E2_choice2",
+        "choiceValue": "HOU_ELECTRICITY_TYPE_NORMAL_EMMISSION_FACTOR",
+        "choiceText": "Ordinary electricity "
+      },
+      {
+        "choiceTranslationKey": "C1154CC4386E46E2_choice3",
+        "choiceText": "I don't know",
+        "choiceValue": "HOU_ELECTRICITY_TYPE_NORMAL_EMMISSION_FACTOR"
+      }
+    ],
+    "variableName": "ANSWER_HOU_TYPE_ELECTRICITY",
+    "formula": "0",
+    "sortKey": "01-03",
+    "id": "C1154CC4386E46E2",
+    "questionText": "What kind of electricity do you use?",
+    "label": "building_and_electricity"
+  },
+  {
+    "id": "43CE3D425BE0E43D",
+    "formula": "(HOU_ELECTRICITY_CONSUMPTION_KWH_PER_YEAR * ANSWER_HOU_TYPE_ELECTRICITY) + ((ANSWER_HOU_SIZE_HOUSE_PER_PERSON * ANSWER_HOU_TYPE_HOUSE/ANSWER_HOU_NO_OF_PEOPLE))",
+    "label": "building_and_electricity",
+    "variableName": "ANSWER_HOU_TYPE_HOUSE",
+    "sortKey": "01-04",
+    "choices": [
+      {
+        "choiceText": "Block of flats",
+        "choiceTranslationKey": "43CE3D425BE0E43D_choice1",
+        "choiceValue": "HOU_EMMISSION_FACTOR_BLOCK_FLATS"
+      },
+      {
+        "choiceText": "Single-family house or semi-detached house",
+        "choiceTranslationKey": "43CE3D425BE0E43D_choice2",
+        "choiceValue": "HOU_EMMISSION_FACTOR_SINGLE_FAMILY"
+      },
+      {
+        "choiceTranslationKey": "43CE3D425BE0E43D_choice3",
+        "choiceValue": "HOU_EMMISSION_FACTOR_TERRACED_HOUSE",
+        "choiceText": "Terraced house"
+      }
+    ],
+    "questionText": "What kind of house do you live in?"
+  },
+  {
+    "variableName": "ANSWER_HOU_ENERGY_CLASS_YEAR_OF_BUILD",
+    "id": "9BE994C02B3D7EB9",
+    "choices": [
+      {
+        "choiceValue": "HOU_ENERGY_CLASS_E_F_IF_BUILT_BEFORE_1990",
+        "choiceText": "Built before 1990",
+        "choiceTranslationKey": "9BE994C02B3D7EB9_choice1"
+      },
+      {
+        "choiceTranslationKey": "9BE994C02B3D7EB9_choice2",
+        "choiceValue": "HOU_ENERGY_CLASS_D_IF_BUILT_1990_2010",
+        "choiceText": "Built 1990 - 2010"
+      },
+      {
+        "choiceTranslationKey": "9BE994C02B3D7EB9_choice3",
+        "choiceText": "After 2010",
+        "choiceValue": "HOU_ENERGY_CLASS_A_B_C_IF_BUILT_AFTER_2010"
+      }
+    ],
+    "sortKey": "01-05",
+    "formula": "0",
+    "questionText": "When was the house built?",
+    "label": "building_and_electricity"
+  },
+  {
+    "choices": [
+      {
+        "choiceValue": "ANSWER_HOU_HEATING_METHOD_DISTRICT_HEATING",
+        "choiceTranslationKey": "9FD133F19666A1F4_choice1",
+        "choiceText": "District heating"
+      },
+      {
+        "choiceValue": "ANSWER_HOU_HEATING_METHOD_GREEN_DISTRICT_HEATING",
+        "choiceText": "Green district heating, wood or pellets",
+        "choiceTranslationKey": "9FD133F19666A1F4_choice2"
+      },
+      {
+        "choiceTranslationKey": "9FD133F19666A1F4_choice3",
+        "choiceValue": "ANSWER_HOU_HEATING_METHOD_LIGHT_FUEL_OIL",
+        "choiceText": "Light fuel oil"
+      },
+      {
+        "choiceText": "Electricity",
+        "choiceValue": "ANSWER_HOU_HEATING_METHOD_ELECTRICITY",
+        "choiceTranslationKey": "9FD133F19666A1F4_choice4"
+      },
+      {
+        "choiceValue": "ANSWER_HOU_HEATING_METHOD_NATURAL_GAS",
+        "choiceText": "Natural gas",
+        "choiceTranslationKey": "9FD133F19666A1F4_choice5"
+      },
+      {
+        "choiceText": "Geothermal heat pump or air-source heat pump",
+        "choiceTranslationKey": "9FD133F19666A1F4_choice6",
+        "choiceValue": "ANSWER_HOU_HEATING_METHOD_HEAT_PUMP"
+      },
+      {
+        "choiceTranslationKey": "9FD133F19666A1F4_choice7",
+        "choiceText": "I don't know",
+        "choiceValue": "ANSWER_HOU_HEATING_METHOD_DISTRICT_HEATING"
+      }
+    ],
+    "formula": "ANSWER_HOU_HEATING_METHOD * ANSWER_HOU_SIZE_HOUSE_PER_PERSON * ANSWER_HOU_ENERGY_CLASS_YEAR_OF_BUILD * (HOU_HEATING_PER_PERSON/HOU_LIVING_SPACE_PER_PERSON_AVG)",
+    "variableName": "ANSWER_HOU_HEATING_METHOD",
+    "sortKey": "01-06",
+    "questionText": "What is the primary heating method of your home?",
+    "id": "9FD133F19666A1F4",
+    "label": "heating_and_warm_water"
+  },
+  {
+    "displayCondition": [
+      {
+        "variableName": "ANSWER_HOU_ENERGY_CLASS_YEAR_OF_BUILD",
+        "operator": "!==",
+        "value": "HOU_ENERGY_CLASS_A_B_C_IF_BUILT_AFTER_2010"
+      }
+    ],
+    "sortKey": "01-07",
+    "id": "9592EBC1ACC65569",
+    "formula": "ANSWER_HOU_ENERGY_RENOVATION * ((ANSWER_HOU_HEATING_METHOD * ANSWER_HOU_SIZE_HOUSE_PER_PERSON * ANSWER_HOU_ENERGY_CLASS_YEAR_OF_BUILD * (HOU_HEATING_PER_PERSON/HOU_LIVING_SPACE_PER_PERSON_AVG)) * (HOU_ENERGY_CLASS_A_B_C_IF_BUILT_AFTER_2010 - ANSWER_HOU_ENERGY_CLASS_YEAR_OF_BUILD))",
+    "questionText": "Is your house energetically renovated?",
+    "choices": [
+      {
+        "choiceText": "Yes",
+        "choiceTranslationKey": "9592EBC1ACC65569_choice1",
+        "choiceValue": 1
+      },
+      {
+        "choiceText": "No",
+        "choiceTranslationKey": "9592EBC1ACC65569_choice2",
+        "choiceValue": "0"
+      }
+    ],
+    "label": "heating_and_warm_water",
+    "variableName": "ANSWER_HOU_ENERGY_RENOVATION"
+  },
+  {
+    "choices": [
+      {
+        "choiceText": "Southern Finland",
+        "choiceValue": "0",
+        "choiceTranslationKey": "79EE7634EA47795A_choice1"
+      },
+      {
+        "choiceValue": 0.1,
+        "choiceTranslationKey": "79EE7634EA47795A_choice2",
+        "choiceText": "Central Finland"
+      },
+      {
+        "choiceValue": 0.25,
+        "choiceText": "Northern Finland",
+        "choiceTranslationKey": "79EE7634EA47795A_choice3"
+      }
+    ],
+    "id": "79EE7634EA47795A",
+    "formula": "ANSWER_HOU_WHERE_IN_COUNTRY*ANSWER_HOU_HEATING_METHOD*(ANSWER_HOU_SIZE_HOUSE_PER_PERSON*ANSWER_HOU_ENERGY_CLASS_YEAR_OF_BUILD* (HOU_HEATING_PER_PERSON/HOU_LIVING_SPACE_PER_PERSON_AVG))",
+    "label": "heating_and_warm_water",
+    "variableName": "ANSWER_HOU_WHERE_IN_COUNTRY",
+    "sortKey": "01-08",
+    "questionText": "Where in Finland do you live?"
+  },
+  {
+    "questionText": "What is the room temperature you keep your home in winter?",
+    "variableName": "ANSWER_HOU_ROOM_TEMP",
+    "label": "heating_and_warm_water",
+    "id": "6E00FA628659399C",
+    "choices": [
+      {
+        "choiceValue": -2,
+        "choiceText": "Cool, about 19°C",
+        "choiceTranslationKey": "6E00FA628659399C_choice1"
+      },
+      {
+        "choiceTranslationKey": "6E00FA628659399C_choice2",
+        "choiceValue": "0",
+        "choiceText": "Moderate, about 21°C"
+      },
+      {
+        "choiceTranslationKey": "6E00FA628659399C_choice3",
+        "choiceValue": 2,
+        "choiceText": "Warm, about 23°C"
+      }
+    ],
+    "sortKey": "01-09",
+    "formula": "(ANSWER_HOU_HEATING_METHOD * ANSWER_HOU_SIZE_HOUSE_PER_PERSON * ANSWER_HOU_ENERGY_CLASS_YEAR_OF_BUILD* (HOU_HEATING_PER_PERSON/HOU_LIVING_SPACE_PER_PERSON_AVG)) * ANSWER_HOU_ROOM_TEMP * HOU_TEMPERATURE_PERCENT_FOR_ONE_DEGREE"
+  },
+  {
+    "id": "6DC0E0C978912CFC",
+    "choices": [
+      {
+        "choiceValue": -30,
+        "choiceText": "About 30 minutes",
+        "choiceTranslationKey": "6DC0E0C978912CFC_choice1"
+      },
+      {
+        "choiceTranslationKey": "6DC0E0C978912CFC_choice2",
+        "choiceValue": "0",
+        "choiceText": "About 60 minutes"
+      },
+      {
+        "choiceText": "About 120 minutes",
+        "choiceTranslationKey": "6DC0E0C978912CFC_choice3",
+        "choiceValue": 60
+      }
+    ],
+    "sortKey": "01-10",
+    "variableName": "ANSWER_HOU_SHOWER_TIME",
+    "label": "heating_and_warm_water",
+    "formula": "((ANSWER_HOU_SHOWER_TIME*HOU_SHOWER_WATER_LITER_PER_MINUTE*WEEKS_PER_YEAR*HOU_HEATING_WATER_TO_40_DEGREES_ENERGY*ANSWER_HOU_HEATING_METHOD)+(ANSWER_HOU_SHOWER_TIME*HOU_SHOWER_WATER_LITER_PER_MINUTE*WEEKS_PER_YEAR*HOU_EMISSION_DOMESTIC_WATER_FOOTPRINT))",
+    "questionText": "How much time per week do you spend having a shower?"
+  },
+  {
+    "id": "5906926509D657D4",
+    "questionText": "How many kilometres per week do you typically drive by car?",
+    "variableName": "ANSWER_TRA_KILOMETERS_DRIVEN",
+    "descriptionText": "Take into consideration also trips where you are on the passenger seat.",
+    "choices": [
+      {
+        "choiceText": "I don't drive",
+        "choiceTranslationKey": "5906926509D657D4_choice1",
+        "choiceValue": "0"
+      },
+      {
+        "choiceText": "Less than 100 km",
+        "choiceTranslationKey": "5906926509D657D4_choice2",
+        "choiceValue": "ANSWER_TRA_KILOMETERS_DRIVEN_LESS_THAN_100"
+      },
+      {
+        "choiceText": "100 - 400 km",
+        "choiceTranslationKey": "5906926509D657D4_choice3",
+        "choiceValue": "ANSWER_TRA_KILOMETERS_DRIVEN_100TO400"
+      },
+      {
+        "choiceValue": "ANSWER_TRA_KILOMETERS_DRIVEN_400TO600",
+        "choiceText": "400 - 600 km",
+        "choiceTranslationKey": "5906926509D657D4_choice4"
+      },
+      {
+        "choiceText": "More than 600 km",
+        "choiceTranslationKey": "5906926509D657D4_choice5",
+        "choiceValue": "ANSWER_TRA_KILOMETERS_DRIVEN_MORE_THAN_600"
+      }
+    ],
+    "sortKey": "02-01",
+    "formula": "0",
+    "label": "car",
+    "descriptionTranslationKey": "5906926509D657D4_description"
+  },
+  {
+    "questionText": "What does your car run on?",
+    "choices": [
+      {
+        "choiceValue": "TRA_FUEL_TYPE_FACTOR_PETROL",
+        "choiceText": "Petrol",
+        "choiceTranslationKey": "86BF63FF5398E835_choice1",
+        "relatedVariableValue": "TRA_CAR_AND_INFRA_COMBUSTION"
+      },
+      {
+        "choiceTranslationKey": "86BF63FF5398E835_choice2",
+        "choiceText": "Diesel",
+        "relatedVariableValue": "TRA_CAR_AND_INFRA_COMBUSTION",
+        "choiceValue": "TRA_FUEL_TYPE_FACTOR_DIESEL"
+      },
+      {
+        "choiceTranslationKey": "86BF63FF5398E835_choice3",
+        "relatedVariableValue": "TRA_CAR_AND_INFRA_COMBUSTION",
+        "choiceText": "Gas or ethanol",
+        "choiceValue": "TRA_FUEL_TYPE_FACTOR_GAS_ETHANOL"
+      },
+      {
+        "choiceTranslationKey": "86BF63FF5398E835_choice4",
+        "relatedVariableValue": "TRA_CAR_AND_INFRA_ELECTRIC",
+        "choiceText": "Electricity",
+        "choiceValue": "TRA_FUEL_TYPE_FACTOR_ELECTRICITY"
+      },
+      {
+        "relatedVariableValue": "TRA_CAR_AND_INFRA_ELECTRIC",
+        "choiceTranslationKey": "86BF63FF5398E835_choice5",
+        "choiceValue": "TRA_FUEL_TYPE_FACTOR_HYBRID",
+        "choiceText": "My car is a hybrid"
+      }
+    ],
+    "displayCondition": [
+      {
+        "operator": ">",
+        "variableName": "ANSWER_TRA_KILOMETERS_DRIVEN",
+        "value": "0"
+      }
+    ],
+    "variableName": "ANSWER_TRA_FUEL_TYPE",
+    "id": "86BF63FF5398E835",
+    "relatedVariableName": "TRA_CAR_AND_INFRA",
+    "sortKey": "02-02",
+    "formula": "0",
+    "label": "car"
+  },
+  {
+    "questionText": "How many people usually travel with you in the car?",
+    "choices": [
+      {
+        "choiceValue": 5,
+        "choiceTranslationKey": "F097AD13AA14E285_choice1",
+        "choiceText": "4 or more people in addition to myself"
+      },
+      {
+        "choiceText": "3 people in addition to myself",
+        "choiceTranslationKey": "F097AD13AA14E285_choice2",
+        "choiceValue": 4
+      },
+      {
+        "choiceValue": 3,
+        "choiceText": "2 people in addition to myself",
+        "choiceTranslationKey": "F097AD13AA14E285_choice3"
+      },
+      {
+        "choiceValue": 2,
+        "choiceText": "1 people in addition to myself",
+        "choiceTranslationKey": "F097AD13AA14E285_choice4"
+      },
+      {
+        "choiceTranslationKey": "F097AD13AA14E285_choice5",
+        "choiceText": "I drive on my own",
+        "choiceValue": 1
+      }
+    ],
+    "sortKey": "02-03",
+    "variableName": "ANSWER_TRA_PEOPLE_IN_CAR",
+    "formula": "ANSWER_TRA_KILOMETERS_DRIVEN*(ANSWER_TRA_FUEL_TYPE+(TRA_CAR_AND_INFRA/ANSWER_TRA_PEOPLE_IN_CAR))",
+    "label": "car",
+    "displayCondition": [
+      {
+        "variableName": "ANSWER_TRA_KILOMETERS_DRIVEN",
+        "operator": ">",
+        "value": "0"
+      }
+    ],
+    "id": "F097AD13AA14E285"
+  },
+  {
+    "questionText": "How many kilometres per week do you travel by public transport?",
+    "variableName": "ANSWER_TRA_PUBLIC_TRANSPORT_KM_PER_YEAR",
+    "formula": "ANSWER_TRA_PUBLIC_TRANSPORT_KM_PER_YEAR*TRA_PUBLIC_TRANSPORT_FACTOR",
+    "id": "B8B822BB516CC54E",
+    "label": "public_transport",
+    "sortKey": "02-04",
+    "choices": [
+      {
+        "choiceText": "I don’t use public transport at all",
+        "choiceValue": "0",
+        "choiceTranslationKey": "B8B822BB516CC54E_choice1"
+      },
+      {
+        "choiceValue": 3120,
+        "choiceTranslationKey": "B8B822BB516CC54E_choice2",
+        "choiceText": "Less than 100 km"
+      },
+      {
+        "choiceValue": 13000,
+        "choiceText": "100 - 400 km",
+        "choiceTranslationKey": "B8B822BB516CC54E_choice3"
+      },
+      {
+        "choiceTranslationKey": "B8B822BB516CC54E_choice4",
+        "choiceText": "More than 400 km",
+        "choiceValue": 36400
+      }
+    ]
+  },
+  {
+    "sortKey": "02-05",
+    "formula": "ANSWER_TRA_FLIGHT*TRA_PLANE_FACTOR*880",
+    "choices": [
+      {
+        "choiceTranslationKey": "787D8A29DD6011A8_choice1",
+        "choiceText": "I don’t travel by plane",
+        "choiceValue": "0"
+      },
+      {
+        "choiceTranslationKey": "787D8A29DD6011A8_choice2",
+        "choiceText": "Less than 5 hours",
+        "choiceValue": 4
+      },
+      {
+        "choiceValue": 13,
+        "choiceTranslationKey": "787D8A29DD6011A8_choice3",
+        "choiceText": "5 - 15 hours"
+      },
+      {
+        "choiceValue": 26,
+        "choiceTranslationKey": "787D8A29DD6011A8_choice4",
+        "choiceText": "15 - 30 hours"
+      },
+      {
+        "choiceValue": 51,
+        "choiceTranslationKey": "787D8A29DD6011A8_choice5",
+        "choiceText": "More than 30 hours"
+      }
+    ],
+    "questionText": "How many hours per year do you normally travel by plane?",
+    "label": "flights",
+    "id": "787D8A29DD6011A8",
+    "variableName": "ANSWER_TRA_FLIGHT"
+  },
+  {
+    "formula": "ANSWER_TRA_FERRY*TRA_FERRY_FACTOR",
+    "variableName": "ANSWER_TRA_FERRY",
+    "sortKey": "02-07",
+    "questionText": "How many return trips per year do you normally make by ferry?",
+    "descriptionText": "Take into consideration ferry trips that take at least approximately an hour.",
+    "choices": [
+      {
+        "choiceText": "I don’t travel by ferry",
+        "choiceValue": "0",
+        "choiceTranslationKey": "852924F3D26B5A92_choice1"
+      },
+      {
+        "choiceValue": 5,
+        "choiceTranslationKey": "852924F3D26B5A92_choice2",
+        "choiceText": "1 - 4 trips"
+      },
+      {
+        "choiceValue": 20,
+        "choiceTranslationKey": "852924F3D26B5A92_choice3",
+        "choiceText": "5 - 15 trips"
+      },
+      {
+        "choiceValue": 40,
+        "choiceText": "More than 15 trips",
+        "choiceTranslationKey": "852924F3D26B5A92_choice4"
+      }
+    ],
+    "descriptionTranslationKey": "852924F3D26B5A92_description",
+    "label": "ferry",
+    "id": "852924F3D26B5A92"
+  },
+  {
+    "formula": "0",
+    "id": "C036BFD453A3AA25",
+    "sortKey": "02-08",
+    "choices": [
+      {
+        "choiceTranslationKey": "C036BFD453A3AA25_choice1",
+        "choiceValue": "0",
+        "choiceText": "Never"
+      },
+      {
+        "choiceTranslationKey": "C036BFD453A3AA25_choice2",
+        "choiceText": "1 time per week",
+        "choiceValue": 1
+      },
+      {
+        "choiceText": "2-3 times per week",
+        "choiceTranslationKey": "C036BFD453A3AA25_choice3",
+        "choiceValue": 2
+      },
+      {
+        "choiceText": "4-5 times per week",
+        "choiceTranslationKey": "C036BFD453A3AA25_choice4",
+        "choiceValue": 3
+      }
+    ],
+    "variableName": "ANSWER_TRA_WALK_OR_CYCLE",
+    "label": "public_transport",
+    "questionText": "How many times a week do you walk or cycle to work or go to school (instead of driving or using public transport)?"
+  },
+  {
+    "formula": "0",
+    "variableName": "ANSWER_FOO_DIET",
+    "label": "baseline_diet",
+    "id": "6C2EB4A829492BC9",
+    "sortKey": "03-01",
+    "choices": [
+      {
+        "choiceText": "I am a mixed eater",
+        "choiceValue": "ANSWER_FOO_DIET_CARNIVORE",
+        "choiceTranslationKey": "6C2EB4A829492BC9_choice1"
+      },
+      {
+        "choiceText": "I don´t eat meat, but I do eat fish",
+        "choiceValue": "ANSWER_FOO_DIET_PESCATARIAN",
+        "choiceTranslationKey": "6C2EB4A829492BC9_choice2"
+      },
+      {
+        "choiceValue": "ANSWER_FOO_DIET_VEGETARIAN",
+        "choiceTranslationKey": "6C2EB4A829492BC9_choice3",
+        "choiceText": "I am a vegetarian"
+      },
+      {
+        "choiceValue": "ANSWER_FOO_DIET_VEGAN",
+        "choiceText": "I am a vegan",
+        "choiceTranslationKey": "6C2EB4A829492BC9_choice4"
+      }
+    ],
+    "questionText": "What describes best your eating habits?"
+  },
+  {
+    "formula": "ANSWER_FOO_DIET*ANSWER_FOO_HOW_MUCH",
+    "descriptionText": "This question fine-tunes the impacts of the following food questions.",
+    "sortKey": "03-02",
+    "variableName": "ANSWER_FOO_HOW_MUCH",
+    "label": "baseline_diet",
+    "id": "5314D7EA94DD47B2",
+    "choices": [
+      {
+        "choiceText": "Less",
+        "choiceTranslationKey": "5314D7EA94DD47B2_choice1",
+        "choiceValue": 0.85
+      },
+      {
+        "choiceText": "About the same amount",
+        "choiceValue": 1,
+        "choiceTranslationKey": "5314D7EA94DD47B2_choice2"
+      },
+      {
+        "choiceValue": 1.15,
+        "choiceTranslationKey": "5314D7EA94DD47B2_choice3",
+        "choiceText": "More"
+      }
+    ],
+    "descriptionTranslationKey": "5314D7EA94DD47B2_description",
+    "questionText": "How much do you eat compared to the average person in your country at a meal?"
+  },
+  {
+    "formula": "ANSWER_FOO_HOW_OFTEN_BEEF*ANSWER_FOO_HOW_MUCH",
+    "questionText": "How often do you have beef as part of your meal?",
+    "id": "404279DF7D8E751F",
+    "variableName": "ANSWER_FOO_HOW_OFTEN_BEEF",
+    "label": "beef",
+    "sortKey": "03-03",
+    "displayCondition": [
+      {
+        "value": "ANSWER_FOO_DIET_CARNIVORE",
+        "operator": "===",
+        "variableName": "ANSWER_FOO_DIET"
+      }
+    ],
+    "choices": [
+      {
+        "choiceText": "Never",
+        "choiceValue": "ANSWER_FOO_HOW_OFTEN_BEEF_NEVER",
+        "choiceTranslationKey": "404279DF7D8E751F_choice1"
+      },
+      {
+        "choiceTranslationKey": "404279DF7D8E751F_choice2",
+        "choiceValue": "ANSWER_FOO_HOW_OFTEN_BEEF_1TO3_TIMES",
+        "choiceText": "1-3 times a week"
+      },
+      {
+        "choiceTranslationKey": "404279DF7D8E751F_choice3",
+        "choiceValue": "ANSWER_FOO_HOW_OFTEN_BEEF_4TO7_TIMES",
+        "choiceText": "4-7 times a week"
+      },
+      {
+        "choiceTranslationKey": "404279DF7D8E751F_choice4",
+        "choiceValue": "ANSWER_FOO_HOW_OFTEN_BEEF_SEVERAL_TIMES",
+        "choiceText": "Several times a day"
+      }
+    ]
+  },
+  {
+    "descriptionTranslationKey": "8E2DBBB882E9C872_description",
+    "descriptionText": "All of these foods have similar emission factors.",
+    "id": "8E2DBBB882E9C872",
+    "label": "pork_chicken_fish_or_eggs",
+    "questionText": "How often do you have pork, chicken, fish, or eggs  as part of your meal?",
+    "variableName": "ANSWER_FOO_HOW_OFTEN_PORK",
+    "sortKey": "03-04",
+    "formula": "ANSWER_FOO_HOW_OFTEN_PORK*ANSWER_FOO_HOW_MUCH",
+    "displayCondition": [
+      {
+        "operator": "===",
+        "value": "ANSWER_FOO_DIET_CARNIVORE",
+        "variableName": "ANSWER_FOO_DIET"
+      }
+    ],
+    "choices": [
+      {
+        "choiceTranslationKey": "8E2DBBB882E9C872_choice1",
+        "choiceText": "Never",
+        "choiceValue": "ANSWER_FOO_HOW_OFTEN_PORK_NEVER"
+      },
+      {
+        "choiceText": "1-3 times a week",
+        "choiceValue": "ANSWER_FOO_HOW_OFTEN_PORK_1TO3_TIMES",
+        "choiceTranslationKey": "8E2DBBB882E9C872_choice2"
+      },
+      {
+        "choiceText": "4-7 times a week",
+        "choiceTranslationKey": "8E2DBBB882E9C872_choice3",
+        "choiceValue": "ANSWER_FOO_HOW_OFTEN_PORK_4TO7_TIMES"
+      },
+      {
+        "choiceText": "Several times a day",
+        "choiceTranslationKey": "8E2DBBB882E9C872_choice4",
+        "choiceValue": "ANSWER_FOO_HOW_OFTEN_PORK_SEVERAL_TIMES"
+      }
+    ]
+  },
+  {
+    "variableName": "ANSWER_FOO_HOW_OFTEN_CHEESE",
+    "choices": [
+      {
+        "choiceTranslationKey": "17FA18E2C81E89C7_choice1",
+        "choiceValue": "ANSWER_FOO_HOW_OFTEN_CHEESE_NEVER",
+        "choiceText": "Never"
+      },
+      {
+        "choiceTranslationKey": "17FA18E2C81E89C7_choice2",
+        "choiceText": "1-3 times a week",
+        "choiceValue": "ANSWER_FOO_HOW_OFTEN_CHEESE_1TO3_TIMES"
+      },
+      {
+        "choiceValue": "ANSWER_FOO_HOW_OFTEN_CHEESE_4TO7_TIMES",
+        "choiceText": "4-7 times a week",
+        "choiceTranslationKey": "17FA18E2C81E89C7_choice3"
+      },
+      {
+        "choiceTranslationKey": "17FA18E2C81E89C7_choice4",
+        "choiceText": "Several times a day",
+        "choiceValue": "ANSWER_FOO_HOW_OFTEN_CHEESE_SEVERAL_TIMES"
+      }
+    ],
+    "id": "17FA18E2C81E89C7",
+    "questionText": "How often do you have cheese as part of your meal?",
+    "sortKey": "03-05",
+    "formula": "ANSWER_FOO_HOW_OFTEN_CHEESE*ANSWER_FOO_HOW_MUCH",
+    "label": "cheese",
+    "displayCondition": [
+      {
+        "operator": "!==",
+        "value": "ANSWER_FOO_DIET_VEGAN",
+        "variableName": "ANSWER_FOO_DIET"
+      }
+    ]
+  },
+  {
+    "formula": "ANSWER_FOO_HOW_OFTEN_DAIRY*ANSWER_FOO_HOW_MUCH",
+    "label": "dairy",
+    "sortKey": "03-06",
+    "displayCondition": [
+      {
+        "operator": "!==",
+        "variableName": "ANSWER_FOO_DIET",
+        "value": "ANSWER_FOO_DIET_VEGAN"
+      }
+    ],
+    "questionText": "How often do you have dairy products (milk, sour milk, yoghurt, quark, cream, butter) as part of your meal?",
+    "id": "A990DD6ACC6D039A",
+    "choices": [
+      {
+        "choiceValue": "ANSWER_FOO_HOW_OFTEN_DAIRY_NEVER",
+        "choiceTranslationKey": "A990DD6ACC6D039A_choice1",
+        "choiceText": "Never"
+      },
+      {
+        "choiceValue": "ANSWER_FOO_HOW_OFTEN_DAIRY_1TO3_TIMES",
+        "choiceTranslationKey": "A990DD6ACC6D039A_choice2",
+        "choiceText": "1-3 times a week"
+      },
+      {
+        "choiceTranslationKey": "A990DD6ACC6D039A_choice3",
+        "choiceValue": "ANSWER_FOO_HOW_OFTEN_DAIRY_4TO7_TIMES",
+        "choiceText": "4-7 times a week"
+      },
+      {
+        "choiceTranslationKey": "A990DD6ACC6D039A_choice4",
+        "choiceValue": "ANSWER_FOO_HOW_OFTEN_DAIRY_SEVERAL_TIMES",
+        "choiceText": "Several times a day"
+      }
+    ],
+    "variableName": "ANSWER_FOO_HOW_OFTEN_DAIRY"
+  },
+  {
+    "id": "146FD88DB53266FB",
+    "variableName": "ANSWER_FOO_DRINK_PORTIONS_COFFEE",
+    "choices": [
+      {
+        "choiceValue": "0",
+        "choiceTranslationKey": "146FD88DB53266FB_choice1",
+        "choiceText": "None"
+      },
+      {
+        "choiceTranslationKey": "146FD88DB53266FB_choice2",
+        "choiceText": "1 portion every now and then",
+        "choiceValue": "ANSWER_FOO_DRINK_PORTIONS_COFFEE_1_PORTION"
+      },
+      {
+        "choiceValue": "ANSWER_FOO_DRINK_PORTIONS_COFFEE_3_PORTION",
+        "choiceTranslationKey": "146FD88DB53266FB_choice3",
+        "choiceText": "Fewer than 3 portions a day"
+      },
+      {
+        "choiceValue": "ANSWER_FOO_DRINK_PORTIONS_COFFEE_3TO5_PORTION",
+        "choiceText": "3-5 portions a day",
+        "choiceTranslationKey": "146FD88DB53266FB_choice4"
+      },
+      {
+        "choiceTranslationKey": "146FD88DB53266FB_choice5",
+        "choiceText": "More than 5 portions a day",
+        "choiceValue": "ANSWER_FOO_DRINK_PORTIONS_COFFEE_5_PORTION"
+      }
+    ],
+    "label": "beverages",
+    "questionText": "How many portions (mug/glass) of coffee, tea, juice, beer or wine do you drink every day?",
+    "sortKey": "03-07",
+    "formula": "ANSWER_FOO_DRINK_PORTIONS_COFFEE"
+  },
+  {
+    "variableName": "ANSWER_FOO_FOOD_WASTE",
+    "id": "E9B9873E9B0CE879",
+    "formula": "ANSWER_FOO_FOOD_WASTE",
+    "questionText": "How often do you throw food away?",
+    "choices": [
+      {
+        "choiceText": "Never",
+        "choiceValue": "0",
+        "choiceTranslationKey": "E9B9873E9B0CE879_choice1"
+      },
+      {
+        "choiceText": "Seldom",
+        "choiceTranslationKey": "E9B9873E9B0CE879_choice2",
+        "choiceValue": "ANSWER_FOO_FOOD_WASTE_SELDOM"
+      },
+      {
+        "choiceText": "Every week",
+        "choiceValue": "ANSWER_FOO_FOOD_WASTE_EVERY_WEEK",
+        "choiceTranslationKey": "E9B9873E9B0CE879_choice3"
+      },
+      {
+        "choiceValue": "ANSWER_FOO_FOOD_WASTE_EVERY_DAY",
+        "choiceTranslationKey": "E9B9873E9B0CE879_choice4",
+        "choiceText": "Every day"
+      }
+    ],
+    "sortKey": "03-09",
+    "label": "wasted_food"
+  },
+  {
+    "questionText": "How would you describe your shopping habits?",
+    "variableName": "ANSWER_CON_SHOPPING_HABITS",
+    "label": "shopping",
+    "descriptionTranslationKey": "DA87D071E6BB449D_description",
+    "formula": "0",
+    "id": "DA87D071E6BB449D",
+    "sortKey": "04-01",
+    "descriptionText": "Take into consideration all shopping except food.",
+    "choices": [
+      {
+        "choiceTranslationKey": "DA87D071E6BB449D_choice1",
+        "choiceText": "My shopping is limited to absolute necessary purchases only.",
+        "choiceValue": "ANSWER_CON_SHOPPING_HABITS_ABSOLUTE_NECESSITIES"
+      },
+      {
+        "choiceTranslationKey": "DA87D071E6BB449D_choice2",
+        "choiceText": "I estimate that my shopping habits are the same as an average person of my country.",
+        "choiceValue": "ANSWER_CON_SHOPPING_HABITS_AVERAGE"
+      },
+      {
+        "choiceText": "I like shopping and think I have more stuff than on average.",
+        "choiceValue": "ANSWER_CON_SHOPPING_HABITS_MORE_THAN_AVERAGE",
+        "choiceTranslationKey": "DA87D071E6BB449D_choice3"
+      }
+    ]
+  },
+  {
+    "label": "shopping",
+    "choices": [
+      {
+        "choiceTranslationKey": "55F332D13B76BF5C_choice1",
+        "choiceValue": "0",
+        "choiceText": "Never"
+      },
+      {
+        "choiceText": "Seldom",
+        "choiceValue": 0.1,
+        "choiceTranslationKey": "55F332D13B76BF5C_choice2"
+      },
+      {
+        "choiceValue": 0.5,
+        "choiceTranslationKey": "55F332D13B76BF5C_choice3",
+        "choiceText": "I buy about 50% of my clothes and electronics second-hand or refurbished"
+      },
+      {
+        "choiceTranslationKey": "55F332D13B76BF5C_choice4",
+        "choiceValue": 0.8,
+        "choiceText": "I buy all of my clothes and electronics second-hand or refurbished"
+      }
+    ],
+    "id": "55F332D13B76BF5C",
+    "questionText": "How often do you buy second-hand clothes or refurbished electronics?",
+    "sortKey": "04-02",
+    "variableName": "ANSWER_CON_SECOND_HAND",
+    "formula": "ANSWER_CON_SHOPPING_HABITS-(ANSWER_CON_SHOPPING_HABITS*CON_SHOPPING_SHARE_OF_CLOTHES_AND_ELECTRONICS)*ANSWER_CON_SECOND_HAND"
+  },
+  {
+    "choices": [
+      {
+        "choiceTranslationKey": "B8C16C4A269370B7_choice1",
+        "choiceText": "No",
+        "choiceValue": "0"
+      },
+      {
+        "choiceTranslationKey": "B8C16C4A269370B7_choice2",
+        "choiceText": "I use it in summer",
+        "choiceValue": "ANSWER_CON_COTTAGE_SUMMER"
+      },
+      {
+        "choiceText": "I use it throughout the year",
+        "choiceTranslationKey": "B8C16C4A269370B7_choice3",
+        "choiceValue": "ANSWER_CON_COTTAGE_YEARAROUND"
+      }
+    ],
+    "variableName": "ANSWER_CON_COTTAGE",
+    "questionText": "Do you have a summer cottage?",
+    "id": "B8C16C4A269370B7",
+    "sortKey": "04-03",
+    "label": "cottage",
+    "formula": "0"
+  },
+  {
+    "variableName": "ANSWER_CON_COTTAGE_PEOPLE_AMOUNT",
+    "label": "cottage",
+    "sortKey": "04-04",
+    "formula": "ANSWER_CON_COTTAGE/ANSWER_CON_COTTAGE_PEOPLE_AMOUNT",
+    "displayCondition": [
+      { "value": "0", "operator": "!==", "variableName": "ANSWER_CON_COTTAGE" }
+    ],
+    "id": "79D7CFA7A321FE13",
+    "questionText": "How many people use the summer cottage regularly?",
+    "choices": [
+      {
+        "choiceValue": 2,
+        "choiceText": "1-4 people",
+        "choiceTranslationKey": "79D7CFA7A321FE13_choice1"
+      },
+      {
+        "choiceText": "5-10 people",
+        "choiceValue": 7,
+        "choiceTranslationKey": "79D7CFA7A321FE13_choice2"
+      },
+      {
+        "choiceText": "More than 10 people",
+        "choiceTranslationKey": "79D7CFA7A321FE13_choice3",
+        "choiceValue": 13
+      }
+    ]
+  },
+  {
+    "variableName": "ANSWER_CON_PETS",
+    "questionText": "How much money do you spend on pets every month?",
+    "id": "63A72BB92FEA39EE",
+    "label": "pets",
+    "formula": "CON_PETS_10_EUR_CONSTANT*ANSWER_CON_PETS",
+    "sortKey": "04-05",
+    "choices": [
+      {
+        "choiceValue": "0",
+        "choiceText": "I don't have a pet",
+        "choiceTranslationKey": "63A72BB92FEA39EE_choice1"
+      },
+      {
+        "choiceTranslationKey": "63A72BB92FEA39EE_choice2",
+        "choiceValue": 3.5,
+        "choiceText": "Less than 50 euros"
+      },
+      {
+        "choiceTranslationKey": "63A72BB92FEA39EE_choice3",
+        "choiceValue": 7.5,
+        "choiceText": "50-100 euros"
+      },
+      {
+        "choiceTranslationKey": "63A72BB92FEA39EE_choice4",
+        "choiceValue": 15,
+        "choiceText": "100-200 euros"
+      },
+      {
+        "choiceTranslationKey": "63A72BB92FEA39EE_choice5",
+        "choiceValue": 21,
+        "choiceText": "200 euros or more"
+      }
+    ]
+  },
+  {
+    "choices": [
+      {
+        "choiceText": "Under 18",
+        "choiceValue": "DEMOGRAPHIC_AGE_UNDER_18",
+        "choiceTranslationKey": "6B029F47344B0C00_choice1"
+      },
+      {
+        "choiceValue": "DEMOGRAPHIC_AGE_18_TO_30",
+        "choiceTranslationKey": "6B029F47344B0C00_choice2",
+        "choiceText": "18-30"
+      },
+      {
+        "choiceValue": "DEMOGRAPHIC_AGE_31_TO_50",
+        "choiceText": "31-50",
+        "choiceTranslationKey": "6B029F47344B0C00_choice3"
+      },
+      {
+        "choiceValue": "DEMOGRAPHIC_AGE_OVER_50",
+        "choiceTranslationKey": "6B029F47344B0C00_choice4",
+        "choiceText": "Over 50"
+      }
+    ],
+    "formula": "0",
+    "questionText": "What is your age?",
+    "variableName": "DEMOGRAPHIC_AGE",
+    "sortKey": "99-01",
+    "id": "6B029F47344B0C00",
+    "label": "demographic"
+  },
+  {
+    "formula": "0",
+    "questionText": "What gender do you most identify with?",
+    "id": "3707830B1D686FDE",
+    "choices": [
+      {
+        "choiceValue": "DEMOGRAPHIC_GENDER_FEMALE",
+        "choiceText": "Female",
+        "choiceTranslationKey": "3707830B1D686FDE_choice1"
+      },
+      {
+        "choiceValue": "DEMOGRAPHIC_GENDER_MALE",
+        "choiceTranslationKey": "3707830B1D686FDE_choice2",
+        "choiceText": "Male"
+      },
+      {
+        "choiceTranslationKey": "3707830B1D686FDE_choice3",
+        "choiceText": "Other",
+        "choiceValue": "DEMOGRAPHIC_GENDER_OTHER"
+      }
+    ],
+    "variableName": "DEMOGRAPHIC_GENDER",
+    "label": "demographic",
+    "sortKey": "99-02"
+  },
+  {
+    "questionText": "Where do you live?",
+    "choices": [
+      {
+        "choiceTranslationKey": "C88DB73958220CF7_choice1",
+        "choiceText": "Large metropolitan area (500 000 or more)",
+        "choiceValue": "DEMOGRAPHIC_LOCATION_LARGE_METROPOLITAN_AREA"
+      },
+      {
+        "choiceValue": "DEMOGRAPHIC_LOCATION_LARGE_CITY",
+        "choiceText": "Large city (200 000 to 500 000)",
+        "choiceTranslationKey": "C88DB73958220CF7_choice2"
+      },
+      {
+        "choiceText": "Medium size city (50 000 to 200 000)",
+        "choiceTranslationKey": "C88DB73958220CF7_choice3",
+        "choiceValue": "DEMOGRAPHIC_LOCATION_MEDIUM_CITY"
+      },
+      {
+        "choiceText": "Small city (20 000 to 50 000)",
+        "choiceTranslationKey": "C88DB73958220CF7_choice4",
+        "choiceValue": "DEMOGRAPHIC_LOCATION_SMALL_CITY"
+      },
+      {
+        "choiceValue": "DEMOGRAPHIC_LOCATION_URBAN_SETTLEMENT",
+        "choiceText": "Urban settlement (town) (3000 to 20 000)",
+        "choiceTranslationKey": "C88DB73958220CF7_choice5"
+      },
+      {
+        "choiceTranslationKey": "C88DB73958220CF7_choice6",
+        "choiceValue": "DEMOGRAPHIC_LOCATION_RURAL",
+        "choiceText": "Rural area (3000 or less)"
+      }
+    ],
+    "formula": "0",
+    "id": "C88DB73958220CF7",
+    "sortKey": "99-03",
+    "variableName": "DEMOGRAPHIC_LOCATION",
+    "label": "demographic"
+  },
+  {
+    "variableName": "DEMOGRAPHIC_INCOME",
+    "id": "3F58EC16FE711BF6",
+    "questionText": "What is your current disposable yearly income, taking taxes and benefits into account?",
+    "sortKey": "99-04",
+    "choices": [
+      {
+        "choiceText": "Under 15200 €",
+        "choiceValue": "DEMOGRAPHIC_INCOME_0_TO_1_DECILE",
+        "choiceTranslationKey": "3F58EC16FE711BF6_choice1"
+      },
+      {
+        "choiceValue": "DEMOGRAPHIC_INCOME_1_TO_2_DECILE",
+        "choiceTranslationKey": "3F58EC16FE711BF6_choice2",
+        "choiceText": "15 200 € to 18 000 €"
+      },
+      {
+        "choiceText": "18 000 € to 20 700 €",
+        "choiceTranslationKey": "3F58EC16FE711BF6_choice3",
+        "choiceValue": "DEMOGRAPHIC_INCOME_2_TO_3_DECILE"
+      },
+      {
+        "choiceTranslationKey": "3F58EC16FE711BF6_choice4",
+        "choiceValue": "DEMOGRAPHIC_INCOME_3_TO_4_DECILE",
+        "choiceText": "20 700 € to 23 500 €"
+      },
+      {
+        "choiceTranslationKey": "3F58EC16FE711BF6_choice5",
+        "choiceValue": "DEMOGRAPHIC_INCOME_4_TO_5_DECILE",
+        "choiceText": "23 500 € to 26 500 €"
+      },
+      {
+        "choiceTranslationKey": "3F58EC16FE711BF6_choice6",
+        "choiceValue": "DEMOGRAPHIC_INCOME_5_TO_6_DECILE",
+        "choiceText": "26 500 € to 29 200 €"
+      },
+      {
+        "choiceValue": "DEMOGRAPHIC_INCOME_6_TO_7_DECILE",
+        "choiceText": "29 200 € to 32 700 €",
+        "choiceTranslationKey": "3F58EC16FE711BF6_choice7"
+      },
+      {
+        "choiceTranslationKey": "3F58EC16FE711BF6_choice8",
+        "choiceValue": "DEMOGRAPHIC_INCOME_7_TO_8_DECILE",
+        "choiceText": "32 700 € to 37 600 €"
+      },
+      {
+        "choiceTranslationKey": "3F58EC16FE711BF6_choice9",
+        "choiceText": "37 600 € to 45 300 €",
+        "choiceValue": "DEMOGRAPHIC_INCOME_8_TO_9_DECILE"
+      },
+      {
+        "choiceTranslationKey": "3F58EC16FE711BF6_choice10",
+        "choiceValue": "DEMOGRAPHIC_INCOME_95_PERCENTILE",
+        "choiceText": "45 300 € to 54 500 €"
+      },
+      {
+        "choiceText": "54 500 € to 91 100 €",
+        "choiceTranslationKey": "3F58EC16FE711BF6_choice11",
+        "choiceValue": "DEMOGRAPHIC_INCOME_99_PERCENTILE"
+      },
+      {
+        "choiceText": "Over 91 100 €",
+        "choiceValue": "DEMOGRAPHIC_INCOME_TOP_1_PERCENT",
+        "choiceTranslationKey": "3F58EC16FE711BF6_choice12"
+      },
+      {
+        "choiceText": "I don't want to answer",
+        "choiceValue": "DEMOGRAPHIC_INCOME_DONT_WANT_ANSWER",
+        "choiceTranslationKey": "3F58EC16FE711BF6_choice13"
+      }
+    ],
+    "label": "demographic",
+    "formula": "0"
+  }
+]
