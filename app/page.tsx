@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, Dispatch } from "react";
-import parsedQuestions from "@/data/questions.json";
+import { useState } from "react";
+import questions from "@/data/questions.json";
 
 interface Choice {
   choiceText: string;
@@ -19,12 +19,16 @@ interface Question {
   variableName: string;
 }
 
+type SetQuestionAnswer = (key: string, value: string) => void;
+
+type SetAnswer = (value: string) => void;
+
 function Choice(props: {
   choice: Choice;
   checked: boolean;
-  setChecked: Dispatch<string | null>;
+  setAnswer: SetAnswer;
 }) {
-  const { choice, checked, setChecked } = props;
+  const { choice, checked, setAnswer } = props;
   const { choiceText, choiceTranslationKey } = choice;
 
   return (
@@ -32,17 +36,22 @@ function Choice(props: {
       <input
         type="radio"
         checked={checked}
-        onChange={() => setChecked(choiceTranslationKey)}
+        onChange={() => setAnswer(choiceTranslationKey)}
       />
       {choiceText}
     </label>
   );
 }
 
-function Question(props: { question: Question }) {
-  const { question } = props;
+function Question(props: {
+  question: Question;
+  answer?: string;
+  setQuestionAnswer: SetQuestionAnswer;
+}) {
+  const { question, answer, setQuestionAnswer } = props;
   const { questionText } = question;
-  const [checkedChoiceKey, setCheckedChoiceKey] = useState<string | null>(null);
+
+  const setAnswer: SetAnswer = (value) => setQuestionAnswer(question.id, value);
 
   return (
     <fieldset>
@@ -51,8 +60,8 @@ function Question(props: { question: Question }) {
         <Choice
           key={choice.choiceTranslationKey}
           choice={choice}
-          checked={choice.choiceTranslationKey === checkedChoiceKey}
-          setChecked={setCheckedChoiceKey}
+          checked={choice.choiceTranslationKey === answer}
+          setAnswer={setAnswer}
         />
       ))}
     </fieldset>
@@ -60,10 +69,23 @@ function Question(props: { question: Question }) {
 }
 
 export default function Home() {
+  const [answers, setAnswers] = useState<Record<string, string>>({});
+
+  const setQuestionAnswer: SetQuestionAnswer = (key, value) =>
+    setAnswers((a) => ({
+      ...a,
+      [key]: value,
+    }));
+
   return (
     <form className="max-w-3xl mx-auto flex flex-col gap-8">
-      {parsedQuestions.map((question) => (
-        <Question key={question.id} question={question} />
+      {questions.map((question) => (
+        <Question
+          key={question.id}
+          question={question}
+          answer={answers[question.id]}
+          setQuestionAnswer={setQuestionAnswer}
+        />
       ))}
     </form>
   );
