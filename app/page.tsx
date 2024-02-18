@@ -31,6 +31,14 @@ interface Question {
   variableName: string;
 }
 
+interface Scenario {
+  questionId: string;
+  currentChoiceId: string;
+  newChoiceId: string;
+  currentEmissions: number;
+  newEmissions: number;
+}
+
 type SetQuestionAnswer = (key: string, value: string) => void;
 type SetAnswer = (value: string) => void;
 type ToggleActMode = () => void;
@@ -107,6 +115,64 @@ function Questionnaire({
   );
 }
 
+function Scenario(props: { scenario: Scenario }) {
+  const { scenario } = props;
+  const {
+    questionId,
+    currentChoiceId,
+    newChoiceId,
+    currentEmissions,
+    newEmissions,
+  } = scenario;
+
+  const question = questions.find((question) => question.id === questionId);
+  const currentChoice = question?.choices.find(
+    (choice) => choice.choiceTranslationKey === currentChoiceId,
+  );
+  const newChoice = question?.choices.find(
+    (choice) => choice.choiceTranslationKey === newChoiceId,
+  );
+
+  if (!question || !currentChoice || !newChoice) return null;
+
+  const emissionDelta = newEmissions - currentEmissions;
+  const emissionDeltaPercent = (emissionDelta / currentEmissions) * 100;
+
+  const formatDelta = (delta: number) => {
+    const prefix = delta > 0 ? "+" : "";
+    return prefix + delta.toFixed();
+  };
+
+  return (
+    <dl>
+      <dt>Question:</dt>
+      <dd>{question.questionText}</dd>
+      <dt>From:</dt>
+      <dd>{currentChoice.choiceText}</dd>
+      <dt>To:</dt>
+      <dd>{newChoice.choiceText}</dd>
+      <dt>Effect on footprint:</dt>
+      <dd>
+        {formatDelta(emissionDelta)} kg ({formatDelta(emissionDeltaPercent)} %)
+      </dd>
+    </dl>
+  );
+}
+
+function ActionPlanner(props: { scenarios: Scenario[] }) {
+  const { scenarios } = props;
+
+  return (
+    <div className="flex flex-col gap-8">
+      {scenarios
+        .sort((a, b) => a.newEmissions - b.newEmissions)
+        .map((scenario) => (
+          <Scenario key={scenario.newChoiceId} scenario={scenario} />
+        ))}
+    </div>
+  );
+}
+
 function Toolbar({
   emissionsInKg,
   readyToAct,
@@ -157,48 +223,54 @@ export default function Home() {
         : variableName,
     );
 
-  const assignmentsFromAnswers = Object.entries(answers).reduce<
-    Record<string, string>
-  >((acc, [questionId, choiceId]) => {
-    const question = questions.find(({ id }) => id === questionId);
+  const getAssignments = (overrides?: Record<string, string | undefined>) => {
+    const assignmentsFromAnswers = Object.entries(answers).reduce<
+      Record<string, string>
+    >((acc, [questionId, choiceId]) => {
+      const question = questions.find(({ id }) => id === questionId);
 
-    if (!question) return acc;
+      if (!question) return acc;
 
-    const { choices, variableName, relatedVariableName } = question;
+      const { choices, variableName, relatedVariableName } = question;
 
-    const { choiceValue, relatedVariableValue } = choices.find(
-      ({ choiceTranslationKey }) => choiceTranslationKey === choiceId,
-    ) as Choice;
+      const wantedChoiceId = overrides?.[questionId] || choiceId;
 
-    const relatedVariableAssignment =
-      relatedVariableName && relatedVariableValue !== undefined
-        ? {
-            [relatedVariableName]: replaceVariables(
-              relatedVariableValue.toString(),
-              constants,
-            ),
-          }
-        : {};
+      const { choiceValue, relatedVariableValue } = choices.find(
+        ({ choiceTranslationKey }) => choiceTranslationKey === wantedChoiceId,
+      ) as Choice;
+
+      const relatedVariableAssignment =
+        relatedVariableName && relatedVariableValue !== undefined
+          ? {
+              [relatedVariableName]: replaceVariables(
+                relatedVariableValue.toString(),
+                constants,
+              ),
+            }
+          : {};
+
+      return {
+        ...acc,
+        [variableName]: replaceVariables(choiceValue.toString(), constants),
+        ...relatedVariableAssignment,
+      };
+    }, {});
+
+    // By now, constants have been replaced. However, there might be variables referencing to values set by other assignments
+    // so replace them, too.
+    const replacedAssignmentsFromAnswers = Object.fromEntries(
+      Object.entries(assignmentsFromAnswers).map(([variableName, value]) => {
+        return [variableName, replaceVariables(value, assignmentsFromAnswers)];
+      }),
+    );
 
     return {
-      ...acc,
-      [variableName]: replaceVariables(choiceValue.toString(), constants),
-      ...relatedVariableAssignment,
+      ...constants,
+      ...replacedAssignmentsFromAnswers,
     };
-  }, {});
-
-  // By now, constants have been replaced. However, there might be variables referencing to values set by other assignments
-  // so replace them, too.
-  const replacedAssignmentsFromAnswers = Object.fromEntries(
-    Object.entries(assignmentsFromAnswers).map(([variableName, value]) => {
-      return [variableName, replaceVariables(value, assignmentsFromAnswers)];
-    }),
-  );
-
-  const assignments = {
-    ...constants,
-    ...replacedAssignmentsFromAnswers,
   };
+
+  const assignments = getAssignments();
 
   const testDisplayConditions = (displayConditions?: DisplayCondition[]) => {
     if (!displayConditions) return true;
@@ -222,34 +294,63 @@ export default function Home() {
       !disabled && testDisplayConditions(displayCondition),
   );
 
-  const emissionsInKg = availableQuestions.reduce<number>(
-    (acc, { formula }, i) => {
-      const replacedFormula = replaceVariables(formula, assignments);
+  const calculateFootprint = (
+    overrides?: Record<string, string | undefined>,
+  ) => {
+    return availableQuestions.reduce<number>((acc, question) => {
+      const overriddenAssignments = getAssignments(overrides);
+      const replacedFormula = replaceVariables(
+        question.formula,
+        overriddenAssignments,
+      );
 
       try {
         return acc + evaluate(replacedFormula);
       } catch (e) {
         return acc;
       }
-    },
-    0,
-  );
+    }, 0);
+  };
+
+  const footprint = calculateFootprint();
 
   const allAnswered = availableQuestions.every(({ id }) =>
     answers.hasOwnProperty(id),
   );
 
+  const scenarios: Scenario[] = availableQuestions.flatMap((question) => {
+    return question.choices
+      .filter((choice) => {
+        return !Object.values(answers).includes(choice.choiceTranslationKey);
+      })
+      .map((choice) => {
+        const questionId = question.id;
+        const newChoiceId = choice.choiceTranslationKey;
+        return {
+          questionId,
+          currentChoiceId: answers[question.id],
+          newChoiceId,
+          currentEmissions: footprint,
+          newEmissions: calculateFootprint({ [question.id]: newChoiceId }),
+        };
+      });
+  });
+
   return (
     <main>
       <div className="max-w-2xl mx-auto pt-4 pb-16 px-2">
-        <Questionnaire
-          questions={availableQuestions}
-          answers={answers}
-          setQuestionAnswer={setQuestionAnswer}
-        />
+        {actMode ? (
+          <ActionPlanner scenarios={scenarios} />
+        ) : (
+          <Questionnaire
+            questions={availableQuestions}
+            answers={answers}
+            setQuestionAnswer={setQuestionAnswer}
+          />
+        )}
       </div>
       <Toolbar
-        emissionsInKg={emissionsInKg}
+        emissionsInKg={footprint}
         readyToAct={allAnswered}
         actMode={actMode}
         toggleActMode={() => setActMode(!actMode)}
