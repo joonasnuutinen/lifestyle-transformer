@@ -553,7 +553,8 @@
     ],
     "variableName": "ANSWER_TRA_WALK_OR_CYCLE",
     "label": "public_transport",
-    "questionText": "How many times a week do you walk or cycle to work or go to school (instead of driving or using public transport)?"
+    "questionText": "How many times a week do you walk or cycle to work or go to school (instead of driving or using public transport)?",
+    "disabled": true
   },
   {
     "formula": "0",

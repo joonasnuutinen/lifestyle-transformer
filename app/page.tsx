@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { evaluate } from "mathjs";
-import questions from "@/data/questions.json";
+import parsedQuestions from "@/data/questions.json";
 import parsedConstants from "@/data/constants.json";
 
 interface Choice {
@@ -20,6 +20,7 @@ interface DisplayCondition {
 
 interface Question {
   choices: Choice[];
+  disabled?: boolean;
   displayCondition?: DisplayCondition[];
   formula: string;
   id: string;
@@ -32,8 +33,10 @@ interface Question {
 
 type SetQuestionAnswer = (key: string, value: string) => void;
 type SetAnswer = (value: string) => void;
+type ToggleActMode = () => void;
 
 const constants = parsedConstants as Record<string, number>;
+const questions = parsedQuestions as Question[];
 
 function Choice(props: {
   choice: Choice;
@@ -81,31 +84,6 @@ function Question(props: {
   );
 }
 
-function Toolbar({
-  emissionsInKg,
-  readyToAct,
-}: {
-  emissionsInKg: number;
-  readyToAct: boolean;
-}) {
-  return (
-    <aside className="fixed bottom-0 inset-x-0 bg-white py-2 border-t">
-      <div className="max-w-2xl mx-auto px-2 flex justify-between items-center">
-        <p>
-          Total footprint: <output>{emissionsInKg.toFixed(0)}</output> kg
-        </p>
-        <button
-          className="btn btn-primary"
-          type="button"
-          disabled={!readyToAct}
-        >
-          Act
-        </button>
-      </div>
-    </aside>
-  );
-}
-
 function Questionnaire({
   questions,
   answers,
@@ -129,8 +107,39 @@ function Questionnaire({
   );
 }
 
+function Toolbar({
+  emissionsInKg,
+  readyToAct,
+  actMode,
+  toggleActMode,
+}: {
+  emissionsInKg: number;
+  readyToAct: boolean;
+  actMode: boolean;
+  toggleActMode: ToggleActMode;
+}) {
+  return (
+    <aside className="fixed bottom-0 inset-x-0 bg-white py-2 border-t">
+      <div className="max-w-2xl mx-auto px-2 flex justify-between items-center">
+        <p>
+          Total footprint: <output>{emissionsInKg.toFixed(0)}</output> kg
+        </p>
+        <button
+          className={`btn ${actMode ? "btn-secondary" : "btn-primary"}`}
+          type="button"
+          disabled={!readyToAct}
+          onClick={() => toggleActMode()}
+        >
+          {actMode ? "Back" : "Act"}
+        </button>
+      </div>
+    </aside>
+  );
+}
+
 export default function Home() {
   const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [actMode, setActMode] = useState(false);
 
   const setQuestionAnswer: SetQuestionAnswer = (key, value) =>
     setAnswers((a) => ({
@@ -208,8 +217,9 @@ export default function Home() {
     });
   };
 
-  const availableQuestions = questions.filter(({ displayCondition }) =>
-    testDisplayConditions(displayCondition),
+  const availableQuestions = questions.filter(
+    ({ disabled, displayCondition }) =>
+      !disabled && testDisplayConditions(displayCondition),
   );
 
   const emissionsInKg = availableQuestions.reduce<number>(
@@ -238,7 +248,12 @@ export default function Home() {
           setQuestionAnswer={setQuestionAnswer}
         />
       </div>
-      <Toolbar emissionsInKg={emissionsInKg} readyToAct={allAnswered} />
+      <Toolbar
+        emissionsInKg={emissionsInKg}
+        readyToAct={allAnswered}
+        actMode={actMode}
+        toggleActMode={() => setActMode(!actMode)}
+      />
     </main>
   );
 }

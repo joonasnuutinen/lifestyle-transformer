@@ -23,14 +23,18 @@ const config: Config = {
           padding: ".25rem 1rem",
           borderRadius: ".25rem",
           fontWeight: "600",
-        },
-        ".btn-primary": {
-          backgroundColor: "#84cc16",
-          color: "#000",
           "&:disabled": {
             backgroundColor: "#d4d4d4",
             color: "#737373",
           },
+        },
+        ".btn-primary": {
+          backgroundColor: "#84cc16",
+          color: "#000",
+        },
+        ".btn-secondary": {
+          backgroundColor: "#f87171",
+          color: "#000",
         },
       });
     }),
