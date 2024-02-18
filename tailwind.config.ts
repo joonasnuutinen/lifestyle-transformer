@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import plugin from "tailwindcss/plugin";
 
 const config: Config = {
   content: [
@@ -15,6 +16,24 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(({ addComponents }) => {
+      addComponents({
+        ".btn": {
+          padding: ".25rem 1rem",
+          borderRadius: ".25rem",
+          fontWeight: "600",
+        },
+        ".btn-primary": {
+          backgroundColor: "#84cc16",
+          color: "#000",
+          "&:disabled": {
+            backgroundColor: "#d4d4d4",
+            color: "#737373",
+          },
+        },
+      });
+    }),
+  ],
 };
 export default config;

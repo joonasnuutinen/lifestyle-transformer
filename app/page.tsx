@@ -44,8 +44,9 @@ function Choice(props: {
   const { choiceText, choiceTranslationKey } = choice;
 
   return (
-    <label className="flex gap-2 items-center">
+    <label className="flex gap-2 items-start">
       <input
+        className="mt-1.5"
         type="radio"
         checked={checked}
         onChange={() => setAnswer(choiceTranslationKey)}
@@ -80,10 +81,27 @@ function Question(props: {
   );
 }
 
-function TotalEmissions({ emissionsInKg }: { emissionsInKg: number }) {
+function Toolbar({
+  emissionsInKg,
+  readyToAct,
+}: {
+  emissionsInKg: number;
+  readyToAct: boolean;
+}) {
   return (
-    <aside className="fixed bottom-0 inset-x-0 text-center bg-white py-2 border-t">
-      Total emissions: <output>{emissionsInKg.toFixed(0)}</output> kg
+    <aside className="fixed bottom-0 inset-x-0 bg-white py-2 border-t">
+      <div className="max-w-2xl mx-auto px-2 flex justify-between items-center">
+        <p>
+          Total footprint: <output>{emissionsInKg.toFixed(0)}</output> kg
+        </p>
+        <button
+          className="btn btn-primary"
+          type="button"
+          disabled={!readyToAct}
+        >
+          Act
+        </button>
+      </div>
     </aside>
   );
 }
@@ -98,7 +116,7 @@ function Questionnaire({
   setQuestionAnswer: SetQuestionAnswer;
 }) {
   return (
-    <form className="max-w-3xl mx-auto flex flex-col gap-8 pt-8 pb-16">
+    <form className="flex flex-col gap-8">
       {questions.map((question) => (
         <Question
           key={question.id}
@@ -207,14 +225,20 @@ export default function Home() {
     0,
   );
 
+  const allAnswered = availableQuestions.every(({ id }) =>
+    answers.hasOwnProperty(id),
+  );
+
   return (
     <main>
-      <Questionnaire
-        questions={availableQuestions}
-        answers={answers}
-        setQuestionAnswer={setQuestionAnswer}
-      />
-      <TotalEmissions emissionsInKg={emissionsInKg} />
+      <div className="max-w-2xl mx-auto pt-4 pb-16 px-2">
+        <Questionnaire
+          questions={availableQuestions}
+          answers={answers}
+          setQuestionAnswer={setQuestionAnswer}
+        />
+      </div>
+      <Toolbar emissionsInKg={emissionsInKg} readyToAct={allAnswered} />
     </main>
   );
 }
