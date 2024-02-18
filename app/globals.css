@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+dt {
+  font-weight: bold;
+}
+
+dd {
+  padding-left: 1rem;
+}
+
+h2 {
+  font-size: 2rem;
+  margin: 2rem 0 1rem;
+
+  &:first-child {
+    margin-top: 0;
+  }
+}

@@ -73,13 +73,13 @@ function Question(props: {
   setQuestionAnswer: SetQuestionAnswer;
 }) {
   const { question, answer, setQuestionAnswer } = props;
-  const { questionText, displayCondition } = question;
+  const { questionText } = question;
 
   const setAnswer: SetAnswer = (value) => setQuestionAnswer(question.id, value);
 
   return (
     <fieldset>
-      <legend className="mb-1">{questionText}</legend>
+      <legend className="mb-1 font-bold">{questionText}</legend>
       {question.choices.map((choice) => (
         <Choice
           key={choice.choiceTranslationKey}
@@ -102,16 +102,19 @@ function Questionnaire({
   setQuestionAnswer: SetQuestionAnswer;
 }) {
   return (
-    <form className="flex flex-col gap-8">
-      {questions.map((question) => (
-        <Question
-          key={question.id}
-          question={question}
-          answer={answers[question.id]}
-          setQuestionAnswer={setQuestionAnswer}
-        />
-      ))}
-    </form>
+    <div>
+      <h2>Step 1: Calculate your footprint</h2>
+      <form className="flex flex-col gap-8">
+        {questions.map((question) => (
+          <Question
+            key={question.id}
+            question={question}
+            answer={answers[question.id]}
+            setQuestionAnswer={setQuestionAnswer}
+          />
+        ))}
+      </form>
+    </div>
   );
 }
 
@@ -163,12 +166,15 @@ function ActionPlanner(props: { scenarios: Scenario[] }) {
   const { scenarios } = props;
 
   return (
-    <div className="flex flex-col gap-8">
-      {scenarios
-        .sort((a, b) => a.newEmissions - b.newEmissions)
-        .map((scenario) => (
-          <Scenario key={scenario.newChoiceId} scenario={scenario} />
-        ))}
+    <div>
+      <h2>Step 2: Act!</h2>
+      <div className="flex flex-col gap-8">
+        {scenarios
+          .sort((a, b) => a.newEmissions - b.newEmissions)
+          .map((scenario) => (
+            <Scenario key={scenario.newChoiceId} scenario={scenario} />
+          ))}
+      </div>
     </div>
   );
 }
@@ -196,7 +202,7 @@ function Toolbar({
           disabled={!readyToAct}
           onClick={() => toggleActMode()}
         >
-          {actMode ? "Back" : "Act"}
+          {actMode ? "Back" : "Step 2: Act"}
         </button>
       </div>
     </aside>
